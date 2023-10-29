@@ -30,10 +30,6 @@ const Navbar = () => {
             <Link to="/">
                 <img src={testtitle} style={testTitleStyle}></img>
             </Link>
-            <Link >
-                <FontAwesomeIcon icon={faArrowRightToBracket} />
-                ログイン
-            </Link>
         </nav>
     )
 };

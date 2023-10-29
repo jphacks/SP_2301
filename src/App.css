@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+.capturedImg {
+  position: absolute;
+  left: 28%;
+  margin-top: 300px;
+  top: -10.7%;
+  
+}
+
+.sendbtn {
+  margin: auto;
+
+}
+
+.webcam {
+  position: relative;
+  left: 28%;
+  margin-top: 300px;
+}
+
+.cambtn {
+  position: relative;
+  top: 5%;
+  left: 50%;
+  font-size: 2.5rem;
+  border-radius: 10px;
+}
+
+.emo {
+  background-color: aliceblue;
+}
+
+.emoe {
+  background-color: #0055ff;
+}
