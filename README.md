@@ -69,4 +69,7 @@ googleのcloud vision API を用いることで、表情の感情判定を行っ
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
 * 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
-
+* src/component/Load.js
+ローディング画面
+* server.py
+バックエンド処理
