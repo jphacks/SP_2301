@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef,useState } from "react";
 import YouTube from "react-youtube";
 import backgroundImage from "../img/background.png"; // 画像ファイルのパスを指定
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,32 +35,34 @@ function App() {
 
   const artistName = selectData.artist;
   
-
-  const onPlayerReady = (event) => {
-    const player = event.target;
-    player.pauseVideo();
-  };
-
-  const onPlayerStateChange = (event) => {
-    const player = event.target;
-    player.playVideo();
-  };
-
-  const opts = {
-    playerVars: {
-      autoplay: 0, // 自動再生を無効にする
-    },
-  };
+  const playerRef = useRef(null)
 
   const nextSong = () => {
     setSelectedDataId((prevIndex) => (prevIndex + 1) % data.length);
   };
 
   const backSong = () => {
-    setSelectedDataId((prevIndex) => (prevIndex - 1) % data.length);
-  }
+    setSelectedDataId((prevIndex) => {
+      if (prevIndex === 0) {
+        // インデックスが0の場合、最後尾のインデックスに移動
+        return data.length - 1;
+      } else {
+        return prevIndex - 1;
+      }
+    });
+  };
 
-  console.log(data.length)
+  const onPlayerReady = (event) => {
+    const player = event.target;
+    playerRef.current = player;
+  };
+
+  const onPauseVideo = () => {
+    if (playerRef.current) {
+      playerRef.current.pauseVideo(); // 動画を一時停止
+    }
+  };
+
   const containerStyle = {
     position: "relative",
     width: "100vw",
@@ -92,7 +94,7 @@ function App() {
     width: "48%",
     height: "56.5%",
     border: "1px solid #fff",
-    zIndex: -1,//枠
+    zIndex: -1,
   };
 
   const songdetails = {
@@ -103,7 +105,8 @@ function App() {
     color: "#fff",
     fontSize: "50px",
     textAlign: "center",
-  };//曲の詳細
+  };
+
 
   return (
     <div style={containerStyle}>
@@ -112,24 +115,36 @@ function App() {
         <YouTube
           videoId={videoId}
           onReady={onPlayerReady}
-          onStateChange={onPlayerStateChange}
         />
       </div>
       <div style={rectangleStyle}></div>
       <div style={songdetails}>
         <p>{songName}/{artistName}</p>
-        <button onClick={nextSong}><FontAwesomeIcon icon={faAnglesRight} /></button>
         <button className="backSongbtn" onClick={backSong}><FontAwesomeIcon icon={faAnglesRight} /></button>
+        <button onClick={nextSong}><FontAwesomeIcon icon={faAnglesRight} /></button>
+      </div>
+      <div style={nextButtonStyle}>
+      </div>
+      <div style={pauseButtonStyle}>
+        <button onClick={onPauseVideo}></button>
       </div>
     </div>
   );
 }
 
+const nextButtonStyle = {
+  position: "absolute",
+  top: "80%",
+  left: "75%",
+  transform: "translateX(-50%)",
+  zIndex: 1,
+};
+const pauseButtonStyle = {
+  position: "absolute",
+  top: "70%",
+  left: "50%",
+  transform: "translateX(-50%)",
+  zIndex: -1,
+};
+
 export default App;
-
-
-
-
-
-
-

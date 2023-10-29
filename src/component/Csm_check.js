@@ -6,6 +6,8 @@ import "../App.css";
 import axios from 'axios'; // axiosをインポート
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import button_scan from '../img/button_scan.png';
+import button_back from '../img/button_back.png'
 import Load from './Load'; 
 
 
@@ -33,14 +35,12 @@ const CamCheck = () => {
   };
 
   const contentStyle = {
-    zindex: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end', // 下部にボタンを表示
+    zIndex: 2,
   };
-
-  const sendBtnStyle = {
-    position: 'absolute',
-    left: 750,
-  };
-
   
   const sendToBackend = async () => {
     try {
@@ -56,7 +56,7 @@ const CamCheck = () => {
 
       const emotion = receivedEmotion.emotion;
 
-      navigate('/Load', { state: { emotion} });
+      navigate("/load", { state: { emotion} });
     } catch (error) {
       // エラーハンドリング
       console.error('送信エラー', error);
@@ -65,26 +65,45 @@ const CamCheck = () => {
 
     const goBack = () => {
         // ボタンがクリックされたときに"Cam.js"に戻る
-        navigate("/Cam");
+        navigate("/cam");
     };
 
+    const button_scan_Style = {
+      width: '500px',
+      height: '250px',
+      background: `url(${button_scan})`,
+      backgroundSize: 'cover',
+      border: 'none',
+      top: '68%', // Adjust this value for the scan button
+      left: '54%', // Adjust this value for the scan button
+      backgroundPosition: 'center center',
+      position: "absolute",
+    };
+    
+    const button_back_Style = {
+      width: '500px',
+      height: '250px',
+      background: `url(${button_back})`,
+      backgroundSize: 'cover',
+      border: 'none',
+      top: '68%', // Adjust this value for the back button
+      left: '14%', // Adjust this value for the back button
+      backgroundPosition: 'center center',
+      position: "absolute",
+    };
+    
 
-
-  return (
-    <div style={containerStyle}>
-      <div style={overlayStyle}>
-        <div style={contentStyle}>
-            <button onClick={goBack}><FontAwesomeIcon icon={faArrowLeft} /></button> {/* "Cam.js"に戻るボタン */}
-            <img src={capturedImage} alt="Captured Image" className="capturedImg"/>
-            <div style={sendBtnStyle}>
-                <button onClick={sendToBackend}>感情を判定</button>
-            </div>
-            <div  className="emoe">
-            </div>
+    return (
+      <div style={containerStyle}>
+        <div style={overlayStyle}>
+          <div style={contentStyle}>
+            <img src={capturedImage} alt="Captured Image" className="capturedImg" />
+            <button onClick={sendToBackend} style={button_scan_Style}></button>
+            <button onClick={goBack} style={button_back_Style}></button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default CamCheck;

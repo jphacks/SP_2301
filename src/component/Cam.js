@@ -35,7 +35,7 @@ const Cam = () => {
 
   const WebcamCapture = () => {
     return (
-      <div style={{ position: 'absolute', top: -250 }}>
+      <div style={{ position: 'absolute', top: -300 }}>
         <Webcam
           audio={false}
           mirrored={true}
