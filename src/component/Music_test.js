@@ -119,7 +119,8 @@ function App() {
       </div>
       <div style={rectangleStyle}></div>
       <div style={songdetails}>
-        <p>{songName}/{artistName}</p>
+        {/* <p>{songName}/{artistName}</p> */}
+        <p>{songName}</p>
         <button className="backSongbtn" onClick={backSong}><FontAwesomeIcon icon={faAnglesRight} /></button>
         <button onClick={nextSong}><FontAwesomeIcon icon={faAnglesRight} /></button>
       </div>
