@@ -28,17 +28,23 @@ function App() {
 
   const [selectedDataId, setSelectedDataId] = useState(0)
  
+
+  const [songName, setSongName] = useState(selectData.name);
+  const [artistName, setArtistName] = useState(selectData.artist);
   const selectData = data[selectedDataId];
 
   const videoId = selectData.videoID;
-  const songName = selectData.name;
+  //const songName = selectData.name;
 
-  const artistName = selectData.artist;
+  //const artistName = selectData.artist;
   
   const playerRef = useRef(null)
 
   const nextSong = () => {
     setSelectedDataId((prevIndex) => (prevIndex + 1) % data.length);
+    const nextData = data[(selectedDataId + 1) % data.length];
+    setSongName(nextData.name);
+    setArtistName(nextData.artist);
   };
 
   const backSong = () => {
@@ -50,8 +56,6 @@ function App() {
         return prevIndex - 1;
       }
     });
-  };
-
   const onPlayerReady = (event) => {
     const player = event.target;
     playerRef.current = player;
